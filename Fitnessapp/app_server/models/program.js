@@ -9,7 +9,7 @@ const exerciseSchema = new mongoose.Schema({
         type: Number,
         'default': 12,
         min: 0,
-        max: 15
+        max: 60
     },
     sets: {
         type: Number,
