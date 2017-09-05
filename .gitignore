@@ -1,3 +1,4 @@
 node_modules
 
-package-lock.json
+Fitnessapp/**/*.js
+Fitnessapp/**/*.js.map
