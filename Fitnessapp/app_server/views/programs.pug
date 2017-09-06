@@ -1,27 +1,27 @@
 extends layout
 
 block content
-    h1= title
-    button.btn.btn-primary
-        a(href="/programs/addProgram")='Make Program'
-
-    .table
-        .row
+    .row
+        .offset-md-4.col-md-4
+            h2.text-center Programmer
+        .offset-md-2.col-md-2
+            a(href="/programs/addProgram").btn.btn-primary Tilføj program
+    .row
+        .col-md-4
+            h3.text-center Program
+        .col-md-4
+            h3.text-center Kategori
+        .col-md-4
+            h3.text-center Dato
+        
+    .row.align-content-sm-center
+        each program in programs
             .col-md-4
-                h1 Program
+                h4.text-center
+                    a(href="/programs/"+program.id)= program.name
             .col-md-4
-                h1 Kategori
+                h4.text-center= program.category
             .col-md-4
-                h1 Dato
-            .row.align-content-sm-center
-                each program in programs
-                    .col-md-4
-                        h2
-                            a(href="/programs/"+program.id)= program.name
-                    .col-md-4
-                        h2= program.category
-                    .col-md-4
-                        h2= program.date
-
+                h4.text-center= program.date
 
 

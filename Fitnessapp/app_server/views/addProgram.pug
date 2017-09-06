@@ -3,21 +3,14 @@ extends layout
 block content
   .row.banner
     .col-12
-      h1 Tilføj program
+      h2.text-center Tilføj program
   .row
-    .col-12.col-md-8
+    .offset-md-4.col-md-4
       form(action="/programs", method="post", role="form")
-        .form-group.row
-          label.col-10.col-sm-2.col-form-label(for="name") Name
-          .col-12.col-sm-10
-            input#name.form-control(name="name")
-        .form-group.row
-            label.col-10.col-sm-2.col-form-label(for="category") Category
-            .col-12.col-sm-10
+        .form-group
+          label(for="name") Navn
+          input#name.form-control(name="name")
+        .form-group
+            label(for="category") Kategori
             input#name.form-control(name="category")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="date") Date
-          .col-sm-10
-            input#name.form-control(name="date")
-        button.btn.btn-primary.float-right Add program
-    .col-12.col-md-4
+        button.btn.btn-primary.float-right Tilføj program

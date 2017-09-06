@@ -3,25 +3,26 @@ extends layout
 block content
   .row.banner
     .col-12
-      h1= pageHeader.title
+      h2.text-center Tilføj øvelse
   .row
-    .col-12.col-md-8
-      form(action="/programs", method="get", role="form")
-        .form-group.row
-          label.col-10.col-sm-2.col-form-label(for="name") Name
-          .col-12.col-sm-10
-            input#name.form-control(name="name")
-        .form-group.row
-            label.col-10.col-sm-2.col-form-label(for="description") Description
-            .col-sm-10
-            input#name.form-control(name="description")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="repetitions") Repititions
-          .col-sm-10
-            input#name.form-control(name="repetitions")
-        .form-group.row
-          label.col-sm-2.col-form-label(for="sets") Sets
-          .col-sm-10
-            input#name.form-control(name="sets")
-        button.btn.btn-primary.float-right Add Exercise
-    .col-12.col-md-4
+    .offset-md-4.col-md-4
+      form(action="/exercises", method="post", role="form")
+        .form-group
+          label(for="name") Navn
+          input#name.form-control(name="name")
+        .form-group
+            label(for="description") Beskrivelse
+            input#name.form-control(name="category")
+        .form-group
+            label(for="isRepitition") Repitionsøvelse
+            input#name.form-control(name="isRepitition", type="checkbox")
+        .form-group
+            label(for="set") Sæt
+            input#name.form-control(name="set")
+        .form-group
+            label(for="reps") Repititioner
+            input#name.form-control(name="reps")
+        .form-group
+            label(for="time") Tid i sekunder
+            input#name.form-control(name="time")
+        button.btn.btn-primary.float-right Tilføj øvelse

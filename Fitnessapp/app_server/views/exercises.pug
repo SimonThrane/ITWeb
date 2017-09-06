@@ -1,29 +1,29 @@
 extends layout
 
 block content
-    h1= title
-    button.btn.btn-primary
-        a(href="/exercises/addExercise")='Make Exercise'
-
-    .table
-        .row.alert-heading
-            .col-md-4
-                h1 Exercise
-            .col-md-4
-                h1 Description
-            .col-md-4
-                h1 Repetitions
-        .row.align-content-sm-center
-                each exercise in exercises
-                    .col-md-4
-                        h2= exercise.name
-                    .col-md-4
-                        h2= exercise.description
-                    .col-md-4
-                        if exercise.isRepitition
-                            h2= exercise.repetitions + ' X ' + exercise.sets
-                        else
-                            h2= exercise.time
+    .row
+        .offset-md-4.col-md-4
+            h2.text-center Øvelser
+        .offset-md-2.col-md-2
+            a(href="/exercises/addExercise").btn.btn-primary Tilføj øvelse
+    .row
+        .col-md-4
+            h3.text-center Øvelse
+        .col-md-4
+            h3.text-center Beskrivelse
+        .col-md-4
+            h3.text-center Gentagelser/tid
+    .row.align-content-sm-center
+            each exercise in exercises
+                .col-md-4
+                    h4.text-center= exercise.name
+                .col-md-4
+                    h4.text-center= exercise.description
+                .col-md-4
+                    if exercise.isRepitition
+                        h4.text-center= exercise.repetitions + ' X ' + exercise.sets
+                    else
+                        h4.text-center= exercise.time
 
 
     

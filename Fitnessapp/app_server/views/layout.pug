@@ -5,8 +5,8 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+    link(rel='stylesheet', href='https://bootswatch.com/sandstone/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://bootswatch.com/darkly/bootstrap.min.css')
   body
     nav.navbar.fixed-top.navbar-toggleable-md.navbar-inverse
       .container
@@ -19,12 +19,16 @@ html
               a.nav-link(href='/programs') Programmer
             li.nav-item
               a.nav-link(href='/exercises') Øvelser
-    .container
-      block content
-      footer
-        .row
-          .col-12
-            small &copy;
+    .container-fluid
+      .row
+        .col-md-12.padding-zero
+          .panel.panel-default
+            .panel-body
+              block content
+    footer
+      .row
+        .col-12
+
     script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js')
     script(src='/javascripts/bootstrap.min.js')

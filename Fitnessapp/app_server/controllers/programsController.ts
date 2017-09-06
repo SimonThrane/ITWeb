@@ -1,4 +1,5 @@
 import { Exercise } from '../../domain/exercise';
+import { Program } from '../../domain/program';
 
 export class ProgramsController {
     getPrograms(req: any, res: any, next: any) {
@@ -32,14 +33,12 @@ export class ProgramsController {
 
         //fetch from db based on id
         res.render('program', {
-            program: {
-                exercises: [
-                    new Exercise('squat', 'ben',8,3,true),
-                    new Exercise('dødløft', 'ryg',8,3,true),
-                    new Exercise('bænk', 'bryst',8,3,true),
-                    new Exercise('løb', 'ben',null,1,false, 30)
-                ]
-            }
+            program: new Program([
+                new Exercise('squat', 'ben', 8, 3, true),
+                new Exercise('dødløft', 'ryg', 8, 3, true),
+                new Exercise('bænk', 'bryst', 8, 3, true),
+                new Exercise('løb', 'ben', null, 1, false, 30)
+            ],'Standardprogram','Kasper',new Date()),
         })
     }
 
