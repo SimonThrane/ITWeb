@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  .row
+    .col-md-4
+        h1 Exercise
+    .col-md-4
+        h1 Description
+    .col-md-4
+        h1 Rep/Time
+    .row
+        each exercise in program.exercises
+            .col-md-4
+                h2= exercise.name
+            .col-md-4
+                h2= exercise.description
+            .col-md-4
+                if exercise.isRepitition
+                    h2= exercise.repititions + 'X' + exercise.sets
+                else
+                    h2= exercise.time
+
+
+    

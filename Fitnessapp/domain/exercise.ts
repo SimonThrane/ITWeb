@@ -4,7 +4,7 @@ export class Exercise {
         public description: string,
         public repititions: number,
         public sets: number,
-        public time: number,
-        public type: boolean
+        public isRepitition: boolean,
+        public time?: number
     ) {}
 }
