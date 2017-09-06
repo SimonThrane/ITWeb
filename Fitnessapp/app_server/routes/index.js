@@ -1,13 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const ctrlPrograms = require('../controllers/programs');
-const ctrlOthers = require('../controllers/others');
-
-/* Locations pages */
-router.get('/', ctrlPrograms.homelist);
-router.get('/program', ctrlPrograms.programInfo);
-
-/* Other pages */
-router.get('/about', ctrlOthers.about);
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const homeController_1 = require("../controllers/homeController");
+var express = require('express');
+var router = express.Router();
+const homeController = new homeController_1.HomeController();
+/* GET home page. */
+router.get('/', homeController.index);
 module.exports = router;
