@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  .row.banner
+    .col-12
+      h1 Tilføj program
+  .row
+    .col-12.col-md-8
+      form(action="/programs", method="post", role="form")
+        .form-group.row
+          label.col-10.col-sm-2.col-form-label(for="name") Name
+          .col-12.col-sm-10
+            input#name.form-control(name="name")
+        .form-group.row
+            label.col-10.col-sm-2.col-form-label(for="category") Category
+            .col-12.col-sm-10
+            input#name.form-control(name="category")
+        .form-group.row
+          label.col-sm-2.col-form-label(for="date") Date
+          .col-sm-10
+            input#name.form-control(name="date")
+        button.btn.btn-primary.float-right Add program
+    .col-12.col-md-4

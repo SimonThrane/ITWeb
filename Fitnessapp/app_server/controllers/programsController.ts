@@ -42,4 +42,14 @@ export class ProgramsController {
             }
         })
     }
+
+    addProgram(req: any, res: any, next: any) {
+        res.render('addProgram');
+    }
+
+    createProgram(req: any, res: any, next: any) {
+        //Get from body
+        console.log(req.body);
+        res.sendStatus(200);
+    }
 }

@@ -1,23 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  .row
-    .col-md-4
-        h1 Program
-    .col-md-4
-        h1 Kategori
-    .col-md-4
-        h1 Dato
+    h1= title
+    h2
+        a(href="/programs/addProgram")='Make Program'
+        
     .row
-        each program in programs
-            .col-md-4
-                h2
-                    a(href="/programs/"+program.id)= program.name
-            .col-md-4
-                h2= program.category
-            .col-md-4
-                h2= program.date
+        .col-md-4
+            h1 Program
+        .col-md-4
+            h1 Kategori
+        .col-md-4
+            h1 Dato
+        .row
+            each program in programs
+                .col-md-4
+                    h2
+                        a(href="/programs/"+program.id)= program.name
+                .col-md-4
+                    h2= program.category
+                .col-md-4
+                    h2= program.date
 
 
     
