@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 let dbURI = 'mongodb://localhost/FitnessApp';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGODB_URI;
 }
-mongoose.connect(dbURI);
+mongoose.createConnection(dbURI);
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose connected to ${dbURI}`);
