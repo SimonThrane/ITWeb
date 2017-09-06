@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1= title
+    button.btn.btn-primary
+        a(href="/exercises/addExercise")='Make Exercise'
+
+    .row.banner
+        .col-12
+            h1=title
+    .table
+        .row.alert-heading
+            .col-md-4
+                h1 Exercise
+            .col-md-4
+                h1 Description
+            .col-md-4
+                h1 Repetitions
+        .row.align-content-sm-center
+                each exercise in exercises
+                    .col-md-4
+                        h2= exercise.name
+                    .col-md-4
+                        h2= exercise.description
+                    .col-md-4
+                        if exercise.isRepitition
+                            h2= exercise.repetitions + ' X ' + exercise.sets
+                        else
+                            h2= exercise.time
+
+
+    
