@@ -1,4 +1,4 @@
-import {Exercise} from "../../domain/exercise";
+import { Exercise } from "../../domain/exercise";
 
 export class ExercisesController {
 
@@ -8,54 +8,30 @@ export class ExercisesController {
         res.render('exercises',
             {
                 exercises: [
-                    {
-                        id: 1,
-                        name: "Squat",
-                        description: "tough",
-                        repetitions: 12,
-                        sets: 3,
-                        isRepitition: true
-                    },
-                    {
-                        id: 2,
-                        name: "Dødloft",
-                        description: "hård",
-                        repetitions: 2,
-                        sets: 3,
-                        isRepitition: true
-                    },
-                    {
-                        id: 3,
-                        name: "Løb",
-                        description: "hård",
-                        repetitions: null,
-                        sets: 1,
-                        time: 60,
-                        isRepitition: false
-                    },
+                    new Exercise('1', 'squat', 'ben', 8, 3, true),
+                    new Exercise('2', 'dødløft', 'ryg', 8, 3, true),
+                    new Exercise('3', 'bænk', 'bryst', 8, 3, true),
+                    new Exercise('4', 'løb', 'ben', null, 1, false, 30)
                 ]
             });
     }
+
     getExercise(req: any, res: any, next: any) {
         let exerciseId = req.params.exerciseId;
 
         //fetch from db based on id
         res.render('exercise', {
-            exercise: {
-                id: 1,
-                name: "Squat",
-                description: "tough",
-                repititions: 12,
-                sets: 3,
-                isRepitition: true
-            }
-        })
+            exercise: new Exercise('1', "Squat", "tough", 12, 3, true)
+        });
     }
 
+
     addExercise(req: any, res: any, next: any) {
-        res.render('addExercise', {pageHeader:{
-            title: 'Make exercise'
-        }});
+        res.render('addExercise', {
+            pageHeader: {
+                title: 'Make exercise'
+            }
+        });
     }
 
     createExercise(req: any, res: any, next: any) {

@@ -4,6 +4,14 @@ block content
     .row
         .offset-md-4.col-md-4
             h2.text-center= program.name
+        .offset-md-2.col-md-2
+            form(action="/programs/"+program.id+"/addExercise", method="post", role="form")
+                .form-group
+                    label(for="exercise") Øvelser
+                    select#name.form-control(name="exercise")
+                        each exercise in exercises
+                            option(value=exercise.id)= exercise.name
+                button.btn.btn-primary.float-right Tilføj øvelse til program
     .row
       .col-md-4
           h3.text-center Øvelse

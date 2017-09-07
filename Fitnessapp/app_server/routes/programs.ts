@@ -9,5 +9,6 @@ router.get('/', programsController.getPrograms);
 router.get('/addprogram', programsController.addProgram);
 router.get('/:programId', programsController.getProgram);
 router.post('/', programsController.createProgram);
+router.post('/:programId/addExercise', programsController.addExerciseToProgram);
 
 module.exports = router;
