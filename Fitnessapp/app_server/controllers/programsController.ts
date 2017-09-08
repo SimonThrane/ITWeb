@@ -1,5 +1,3 @@
-import {resolve} from "url";
-
 const mongoose = require('mongoose');
 import { Program } from "../../domain/program";
 import { Exercise } from "../../domain/exercise";
@@ -20,6 +18,7 @@ export class ProgramsController {
                 }
             );
     }
+
     getProgram(req: any, res: any, next: any) {
         let programId = req.params.programId;
         //fetch from db based on id
@@ -29,6 +28,7 @@ export class ProgramsController {
                 .exec(
                     function (err, programs) {
                         programResponse = programs;
+                        console.log(programs);
                         resolve();
                     });
 
@@ -38,11 +38,13 @@ export class ProgramsController {
                 .exec(
                     function (err, exercises) {
                         exercisesResponse = exercises;
+                        console.log(exercises);
                         resolve();
                     });
         });
 
         Promise.all([promise1, promise2]).then(
+            console.log(exercisesResponse);
             res.render('program', {
                 program: programResponse,
                 exercises: exercisesResponse
@@ -53,6 +55,15 @@ export class ProgramsController {
     addExerciseToProgram(req: any, res: any, next: any) {
         //Add exercise id to program
         console.log(req.body);
+        let programId =
+        Programs.findById()
+            .exec(
+                (err, program) => {
+                let programReponse = program;
+
+                res.redirect('/Programs/' + programId);
+            }
+        );
 
         res.sendStatus(200);
     }
