@@ -1,36 +1,42 @@
 import { Exercise } from '../../domain/exercise';
 import { Program } from '../../domain/program';
+import {Database} from '../models/db'
+var mongoose = require('mongoose');
+var Programs = mongoose.model('Program');
+var Exercises = mongoose.model('Exercise');
 
 export class ProgramsController {
     getPrograms(req: any, res: any, next: any) {
         //Fetch programs from db
+        let programResponse;
+        Programs.find()
+            .exec(
+                function (err, programs) {
+                    programResponse = programs;
+                }
+            );
+
         res.render('programs',
             {
-                programs: [
-                    {
-                        id: 1,
-                        name: "program1",
-                        category: 'Mave',
-                        date: new Date().toDateString()
-                    },
-                    {
-                        id: 2,
-                        name: "program2",
-                        category: 'Ben',
-                        date: new Date().toDateString()
-                    },
-                    {
-                        id: 3,
-                        name: "program3",
-                        category: 'skulder',
-                        date: new Date().toDateString()
-                    }
-                ]
+                programs: programResponse
             });
     }
     getProgram(req: any, res: any, next: any) {
         let programId = req.params.programId;
+        let programResponse, exercisesResponse;
+        Programs.findById(programId)
+            .exec(
+                function (err, programs) {
+                    programResponse = programs;
+                }
+            );
 
+        Exercises.find()
+            .exec(
+                function (err, exercises) {
+                    exercisesResponse = exercises;
+                }
+            );
         //fetch from db based on id
         res.render('program', {
             program: new Program('123',
@@ -52,6 +58,7 @@ export class ProgramsController {
     addExerciseToProgram(req: any, res: any, next: any) {
         //Add exercise id to program
         console.log(req.body);
+
         res.sendStatus(200);
     }
 

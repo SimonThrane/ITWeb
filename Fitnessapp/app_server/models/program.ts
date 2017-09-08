@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import {isBoolean} from "util";
 
 const exerciseSchema = new mongoose.Schema({
     name: {
@@ -44,3 +43,4 @@ const programSchema = new mongoose.Schema({
 });
 
 mongoose.model('Program', programSchema);
+mongoose.model('Exercise', exerciseSchema);
