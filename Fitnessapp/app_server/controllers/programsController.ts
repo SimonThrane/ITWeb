@@ -1,3 +1,5 @@
+import {resolve} from "url";
+
 const mongoose = require('mongoose');
 import { Program } from "../../domain/program";
 import { Exercise } from "../../domain/exercise";
@@ -20,36 +22,32 @@ export class ProgramsController {
     }
     getProgram(req: any, res: any, next: any) {
         let programId = req.params.programId;
-        let programResponse, exercisesResponse;
-        Programs.findById(programId)
-            .exec(
-                function (err, programs) {
-                    programResponse = programs;
-                }
-            );
-
-        Exercises.find()
-            .exec(
-                function (err, exercises) {
-                    exercisesResponse = exercises;
-                }
-            );
         //fetch from db based on id
-        res.render('program', {
-            program: new Program('123',
-            [
-                new Exercise('123', 'squat', 'ben', 8, 3, true),
-                new Exercise('123', 'dødløft', 'ryg', 8, 3, true),
-                new Exercise('123', 'bænk', 'bryst', 8, 3, true),
-                new Exercise('123', 'løb', 'ben', null, 1, false, 30)
-            ],'Standardprogram','Kasper',new Date()),
-            exercises: [
-                new Exercise('123', 'squat', 'ben', 8, 3, true),
-                new Exercise('123', 'dødløft', 'ryg', 8, 3, true),
-                new Exercise('123', 'bænk', 'bryst', 8, 3, true),
-                new Exercise('123', 'løb', 'ben', null, 1, false, 30)
-            ]
-        })
+        let programResponse, exercisesResponse;
+        let promise1 = new Promise((resolve, reject) =>{
+            Programs.findById(programId)
+                .exec(
+                    function (err, programs) {
+                        programResponse = programs;
+                        resolve();
+                    });
+
+        });
+        let promise2 = new Promise((resolve, reject) =>{
+            Exercises.find()
+                .exec(
+                    function (err, exercises) {
+                        exercisesResponse = exercises;
+                        resolve();
+                    });
+        });
+
+        Promise.all([promise1, promise2]).then(
+            res.render('program', {
+                program: programResponse,
+                exercises: exercisesResponse
+            })
+        )
     }
 
     addExerciseToProgram(req: any, res: any, next: any) {
@@ -65,7 +63,11 @@ export class ProgramsController {
 
     createProgram(req: any, res: any, next: any) {
         //Get from body
-        console.log(req.body);
-        res.sendStatus(200);
+        Programs.create({
+            name: req.body.name,
+            category: req.body.category,
+            create_date: new Date()
+        });
+        res.redirect('/Programs');
     }
 }
