@@ -23,7 +23,7 @@ const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
         max: 60
     },
     description: String,
-    isRepitition: Boolean,
+    isRepetition: Boolean,
     time:{
         type: Number,
         min: 0,

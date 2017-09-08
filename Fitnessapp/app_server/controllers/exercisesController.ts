@@ -47,7 +47,7 @@ export class ExercisesController {
             description: req.body.description,
             isRepetition: req.body.isRepetition,
             reps: req.body.reps,
-            set: req.body.set,
+            sets: req.body.sets,
             time: req.body.time,
             create_date: new Date()
         });
