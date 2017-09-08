@@ -5,12 +5,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('./app_server/models/db');
-
 var index = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
 var programs = require('./app_server/routes/programs');
 var exercises = require('./app_server/routes/exercises');
+import { Database } from './app_server/models/db';
+
+const db = new Database();
 
 
 var app = express();
@@ -31,6 +32,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/programs', programs);
 app.use('/exercises', exercises);
+
+db.run();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
