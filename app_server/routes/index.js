@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const homeController_1 = require("../controllers/homeController");
 var express = require('express');
 var router = express.Router();

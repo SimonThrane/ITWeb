@@ -1,3 +1,4 @@
+declare var require, module, process;
 import { ProgramsController } from '../controllers/programsController';
 var express = require('express');
 var router = express.Router();
@@ -11,4 +12,4 @@ router.get('/:programId', programsController.getProgram);
 router.post('/', programsController.createProgram);
 router.post('/:programId/addExercise', programsController.addExerciseToProgram);
 
-module.exports = router;
+export = router;

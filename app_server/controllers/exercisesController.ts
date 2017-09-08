@@ -1,3 +1,4 @@
+declare var require, module, process;
 import { Exercise } from "../../domain/exercise";
 var mongoose = require('mongoose');
 var Exercisedb = mongoose.model('Exercise');

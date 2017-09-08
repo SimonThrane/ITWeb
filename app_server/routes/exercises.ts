@@ -10,4 +10,4 @@ router.get('/addexercise', exercisesController.addExercise);
 router.get('/:exerciseId', exercisesController.getExercise);
 router.post('/', exercisesController.createExercise);
 
-module.exports = router;
+export = router;

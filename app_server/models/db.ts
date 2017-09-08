@@ -1,3 +1,4 @@
+declare var require, process;
 import * as mongoose from 'mongoose';
 const models = require('./models');
 mongoose.Promise = Promise;

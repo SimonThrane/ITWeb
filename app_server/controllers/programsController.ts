@@ -1,3 +1,4 @@
+declare var require, module, process;
 const mongoose = require('mongoose');
 import { Program } from "../../domain/program";
 import { Exercise } from "../../domain/exercise";

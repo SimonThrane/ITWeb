@@ -1,15 +1,16 @@
-var express = require('express');
-var path = require('path');
-var http = require('http');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+declare var require, process;
+import * as express from 'express';
+import * as path from 'path';
+import * as http from 'http';
+import * as favicon from 'serve-favicon';
+import * as logger from 'morgan';
+import * as cookieParser from 'cookie-parser';
+import * as bodyParser from 'body-parser';
 require('./app_server/models/db');
-var index = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
-var programs = require('./app_server/routes/programs');
-var exercises = require('./app_server/routes/exercises');
+import * as index from './app_server/routes/index';
+import * as users from './app_server/routes/users';
+import * as programs from './app_server/routes/programs';
+import * as exercises from './app_server/routes/exercises';
 
 var app = express();
 
@@ -25,10 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/programs', programs);
-app.use('/exercises', exercises);
+app.use('/' as any, index as any);
+app.use('/users' as any, users as any);
+app.use('/programs' as any, programs as any);
+app.use('/exercises' as any, exercises as any);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,4 +48,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export = app;

@@ -1,3 +1,4 @@
+declare var module;
 import * as mongoose from 'mongoose';
 
 const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
