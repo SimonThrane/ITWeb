@@ -5,11 +5,11 @@ const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    repetitions: {
+    reps: {
         type: Number,
         'default': 12,
         min: 0,
-        max: 20
+        max: 30
     },
     sets: {
         type: Number,
@@ -17,17 +17,13 @@ const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
         min: 0,
         max: 5
     },
-    creater: {
-        type: Number,
-        min: 0,
-        max: 60
-    },
+    creator: String,
     description: String,
     isRepetition: Boolean,
     time:{
         type: Number,
         min: 0,
-        max: 60
+        max: 3600
     }
 });
 
@@ -38,6 +34,6 @@ const programSchema = module.exports.programSchema = new mongoose.Schema({
     },
     exercises: [exerciseSchema],
     category: String,
-    creater: String,
+    creator: String,
     create_date: Date
 });
