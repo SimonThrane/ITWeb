@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run tsc && node ./bin/www",
+    "deploy": "npm install && npm run tsc && node ./bin/www",
     "tsc": "tsc"
   },
   "engines": {
