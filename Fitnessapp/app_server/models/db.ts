@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+const models = require('./models');
 
 export class Database {
 
@@ -17,7 +18,8 @@ export class Database {
     });
 
     promise.then((db) => {
-      console.log('hey');
+      db.model('Program', models.programSchema);
+      db.model('Exercise', models.exerciseSchema);
     });
 
     Database.connection = mongoose.connection;

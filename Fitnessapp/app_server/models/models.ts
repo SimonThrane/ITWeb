@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import {isBoolean} from "util";
 
-const exerciseSchema = new mongoose.Schema({
+const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -32,7 +32,7 @@ const exerciseSchema = new mongoose.Schema({
     }
 });
 
-const programSchema = new mongoose.Schema({
+const programSchema = module.exports.programSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -42,5 +42,3 @@ const programSchema = new mongoose.Schema({
     creater: String,
     create_date: Date
 });
-
-mongoose.model('Program', programSchema);
