@@ -51,29 +51,45 @@ export class ProgramsController {
                     });
         });
 
-        Promise.all([promise1, promise2]).then(
-            console.log(exercisesResponse);
+        Promise.all([promise1, promise2]).then(() =>(
             res.render('program', {
                 program: programResponse,
                 exercises: exercisesResponse
             })
-        )
+        ));
     }
 
     addExerciseToProgram(req: any, res: any, next: any) {
         //Add exercise id to program
-        console.log(req.body);
-        let programId =
-        Programs.findById()
-            .exec(
-                (err, program) => {
-                let programReponse = program;
+        let exerciseId = req.body.exercise;
+        let exercise;
+        let programId = req.params.programId;
 
-                res.redirect('/Programs/' + programId);
-            }
-        );
+            Programs.findById(programId)
+                .exec(
+                    (err, program) => {
 
-        res.sendStatus(200);
+                        Exercises.findById(exerciseId)
+                            .exec(
+                                function (err, exercises) {
+                                    exercise = exercises;
+                                });
+                        console.log(exercise);
+                        console.log(program);
+                        program.exercises.push({
+                            name: exercise.name,
+                            sets: exercise.sets,
+                            repetition: exercise.repetition,
+                            description: exercise.description,
+                            isRepetition: exercise.isRepetition
+                        });
+                        program.save(function (err, program) {
+                            res.redirect('/Programs/' + programId);
+                        })
+                    }
+
+            )
+
     }
 
     addProgram(req: any, res: any, next: any) {
