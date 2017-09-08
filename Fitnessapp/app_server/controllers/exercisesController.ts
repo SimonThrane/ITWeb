@@ -42,8 +42,16 @@ export class ExercisesController {
 
     createExercise(req: any, res: any, next: any) {
         //Get from body
-        console.log(req.body);
+        Exercisedb.create({
+            name: req.body.name,
+            description: req.body.description,
+            isRepetition: req.body.isRepetition,
+            reps: req.body.reps,
+            set: req.body.set,
+            time: req.body.time,
+            create_date: new Date()
+        });
 
-        res.sendStatus(200);
+        res.redirect('/exercises');
     }
 }
