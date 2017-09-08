@@ -6,22 +6,23 @@ block content
             h2.text-center Programmer
         .offset-md-2.col-md-2
             a(href="/programs/addProgram").btn.btn-primary Tilføj program
-    .row
-        .col-md-4
-            h3.text-center Program
-        .col-md-4
-            h3.text-center Kategori
-        .col-md-4
-            h3.text-center Dato
-        
-    .row.align-content-sm-center
-        each program in programs
+    if programs 
+        .row
             .col-md-4
-                h4.text-center
-                    a(href="/programs/"+program.id)= program.name
+                h3.text-center Program
             .col-md-4
-                h4.text-center= program.category
+                h3.text-center Kategori
             .col-md-4
-                h4.text-center= program.date
-
-
+                h3.text-center Dato
+            
+        .row.align-content-sm-center
+            each program in programs
+                .col-md-4
+                    h4.text-center
+                        a(href="/programs/"+program.id)= program.name
+                .col-md-4
+                    h4.text-center= program.category
+                .col-md-4
+                    h4.text-center= program.date
+    
+    
