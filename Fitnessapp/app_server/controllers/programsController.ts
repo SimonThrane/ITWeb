@@ -1,25 +1,22 @@
-import { Exercise } from '../../domain/exercise';
-import { Program } from '../../domain/program';
-import {Database} from '../models/db'
-var mongoose = require('mongoose');
-var Programs = mongoose.model('Program');
+const mongoose = require('mongoose');
+import { Program } from "../../domain/program";
+import { Exercise } from "../../domain/exercise";
 var Exercises = mongoose.model('Exercise');
+var Programs = mongoose.model('Program');
 
 export class ProgramsController {
     getPrograms(req: any, res: any, next: any) {
         //Fetch programs from db
         let programResponse;
         Programs.find()
-            .exec(
-                function (err, programs) {
+            .exec((err, programs) => {
                     programResponse = programs;
+                    res.render('programs',
+                    {
+                        programs: programResponse
+                    });
                 }
             );
-
-        res.render('programs',
-            {
-                programs: programResponse
-            });
     }
     getProgram(req: any, res: any, next: any) {
         let programId = req.params.programId;

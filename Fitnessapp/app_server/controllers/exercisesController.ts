@@ -1,5 +1,5 @@
 import { Exercise } from "../../domain/exercise";
-var mongoose = require(mongoose);
+var mongoose = require('mongoose');
 var Exercisedb = mongoose.model('Exercise');
 export class ExercisesController {
 
