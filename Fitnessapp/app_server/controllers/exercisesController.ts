@@ -7,16 +7,14 @@ export class ExercisesController {
         //Fetch programs from db
         let exerciseResponse;
         Exercisedb.find()
-            . exec(
-                function (err, exercise) {
+            . exec((err, exercise) => {
                     exerciseResponse = exercise;
+                    res.render('exercises',
+                    {
+                        exercises: exerciseResponse
+                    });
                 }
             );
-        res.render('exercises',
-            {
-                exercises: exerciseResponse
-            });
-
     }
 
     getExercise(req: any, res: any, next: any) {
@@ -24,21 +22,15 @@ export class ExercisesController {
         let exerciseResponse;
         //fetch from db based on id
         Exercisedb.findByid(exerciseId)
-            . exec(
-                function (err, exercise) {
-
+            . exec((err, exercise) => {
                     exerciseResponse = exercise;
+                    res.render('exercise',
+                    {
+                        exercise: exerciseResponse
+                    });
                 }
             );
-        res.render('exercise',
-            {
-                exercise: exerciseResponse
-            });
-        res.render('exercise', {
-            exercise: new Exercise('1', "Squat", "tough", 12, 3, true)
-        });
     }
-
 
     addExercise(req: any, res: any, next: any) {
         res.render('addExercise', {
