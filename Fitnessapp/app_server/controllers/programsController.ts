@@ -10,7 +10,15 @@ export class ProgramsController {
         let programResponse;
         Programs.find()
             .exec((err, programs) => {
-                    programResponse = programs;
+                    programResponse = programs.map((p) => {
+                        let mappedProgram = {
+                            id: p._id,
+                            name: p.name,
+                            category: p.category,
+                            date: p.create_date.toLocaleString()
+                        };
+                        return mappedProgram;
+                    });
                     res.render('programs',
                     {
                         programs: programResponse
