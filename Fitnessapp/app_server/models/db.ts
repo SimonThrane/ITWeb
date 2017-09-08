@@ -1,44 +1,61 @@
 import * as mongoose from 'mongoose';
-let dbURI = 'mongodb://localhost/FitnessApp';
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
+
+export class Database {
+
+  public static connection;
+
+  constructor() {
+    mongoose.Promise = Promise;
+  }
+  run() {
+    let dbURI = 'mongodb://localhost/FitnessApp';
+    if (process.env.NODE_ENV === 'production') {
+      dbURI = process.env.MONGODB_URI;
+    }
+    var promise = mongoose.connect(dbURI, {
+      useMongoClient: true
+    });
+
+    promise.then((db) => {
+      console.log('hey');
+    });
+
+    Database.connection = mongoose.connection;
+    
+    Database.connection.on('open', () => {
+      console.log(`Mongoose connected to ${dbURI}`);
+    });
+    Database.connection.on('error', err => {
+      console.log('Mongoose connection error:', err);
+    });
+    Database.connection.on('disconnected', () => {
+      console.log('Mongoose disconnected');
+    });
+    
+    const gracefulShutdown = (msg, callback) => {
+      mongoose.connection.close( () => {
+        console.log(`Mongoose disconnected through ${msg}`);
+        callback();
+      });
+    };
+    
+    // For nodemon restarts                                 
+    process.once('SIGUSR2', () => {
+      gracefulShutdown('nodemon restart', () => {
+        process.kill(process.pid, 'SIGUSR2');
+      });
+    });
+    // For app termination
+    process.on('SIGINT', () => {
+      gracefulShutdown('app termination', () => {
+        process.exit(0);
+      });
+    });
+    // For Heroku app termination
+    process.on('SIGTERM', () => {
+      gracefulShutdown('Heroku app shutdown', () => {
+        process.exit(0);
+      });
+    });    
+  }
 }
-mongoose.createConnection(dbURI);
-
-mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${dbURI}`);
-});
-mongoose.connection.on('error', err => {
-  console.log('Mongoose connection error:', err);
-});
-mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected');
-});
-
-const gracefulShutdown = (msg, callback) => {
-  mongoose.connection.close( () => {
-    console.log(`Mongoose disconnected through ${msg}`);
-    callback();
-  });
-};
-
-// For nodemon restarts                                 
-process.once('SIGUSR2', () => {
-  gracefulShutdown('nodemon restart', () => {
-    process.kill(process.pid, 'SIGUSR2');
-  });
-});
-// For app termination
-process.on('SIGINT', () => {
-  gracefulShutdown('app termination', () => {
-    process.exit(0);
-  });
-});
-// For Heroku app termination
-process.on('SIGTERM', () => {
-  gracefulShutdown('Heroku app shutdown', () => {
-    process.exit(0);
-  });
-});
-
-require('./program');
