@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import {isBoolean} from "util";
 
 const exerciseSchema = new mongoose.Schema({
     name: {
@@ -17,12 +18,18 @@ const exerciseSchema = new mongoose.Schema({
         min: 0,
         max: 5
     },
-    time: {
+    creater: {
         type: Number,
         min: 0,
         max: 60
     },
-    descriptionText: String
+    description: String,
+    isRepitition: Boolean,
+    time:{
+        type: Number,
+        min: 0,
+        max: 60
+    }
 });
 
 const programSchema = new mongoose.Schema({
@@ -31,7 +38,8 @@ const programSchema = new mongoose.Schema({
         required: true
     },
     exercises: [exerciseSchema],
-    createdBy: String,
+    category: String,
+    creater: String,
     create_date: Date
 });
 
