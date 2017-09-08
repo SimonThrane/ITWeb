@@ -64,7 +64,6 @@ export class ProgramsController {
         let exerciseId = req.body.exercise;
         let exercise;
         let programId = req.params.programId;
-
             Programs.findById(programId)
                 .exec(
                     (err, program) => {
@@ -73,19 +72,18 @@ export class ProgramsController {
                             .exec(
                                 function (err, exercises) {
                                     exercise = exercises;
+
+                                    program.exercises.push({
+                                        name: exercise.name,
+                                        sets: exercise.sets,
+                                        repetition: exercise.repetition,
+                                        description: exercise.description,
+                                        isRepetition: exercise.isRepetition
+                                    });
+                                    program.save(function (err, program) {
+                                        res.redirect('/Programs/' + programId);
+                                    })
                                 });
-                        console.log(exercise);
-                        console.log(program);
-                        program.exercises.push({
-                            name: exercise.name,
-                            sets: exercise.sets,
-                            repetition: exercise.repetition,
-                            description: exercise.description,
-                            isRepetition: exercise.isRepetition
-                        });
-                        program.save(function (err, program) {
-                            res.redirect('/Programs/' + programId);
-                        })
                     }
 
             )
