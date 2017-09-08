@@ -30,34 +30,39 @@ export class ProgramsController {
     getProgram(req: any, res: any, next: any) {
         let programId = req.params.programId;
         //fetch from db based on id
-        let programResponse, exercisesResponse;
+        let programResponse: any;
+        let exercisesResponse: any;
         let promise1 = new Promise((resolve, reject) =>{
             Programs.findById(programId)
                 .exec(
                     function (err, programs) {
                         programResponse = programs;
-                        console.log(programs);
                         resolve();
                     });
-
         });
         let promise2 = new Promise((resolve, reject) =>{
             Exercises.find()
-                .exec(
-                    function (err, exercises) {
+                .exec((err, exercises) => {
                         exercisesResponse = exercises;
-                        console.log(exercises);
                         resolve();
                     });
         });
 
-        Promise.all([promise1, promise2]).then(
-            console.log(exercisesResponse);
+        Promise.all([promise1, promise2]).then(() => {
+            let sortedExercises = sortExercises(programResponse.exercises, exercisesResponse);
             res.render('program', {
                 program: programResponse,
-                exercises: exercisesResponse
-            })
-        )
+                exercises: sortedExercises
+            });
+        }
+        );
+        function sortExercises(programExercises: Array<any>, other: Array<any>): Array<any> {
+            let filteredExercises = other
+                .filter((e) => !programExercises
+                    .filter((pe) => pe._id !== e._id)
+                        .length);
+            return filteredExercises;
+        }
     }
 
     addExerciseToProgram(req: any, res: any, next: any) {
