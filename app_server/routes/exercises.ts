@@ -1,3 +1,4 @@
+declare var require;
 import {ExercisesController} from '../controllers/exercisesController';
 var express = require('express');
 var router = express.Router();
