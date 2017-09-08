@@ -3,9 +3,9 @@ export class Exercise {
         public id: string,
         public name: string,
         public description: string,
-        public repititions: number,
+        public repetitions: number,
         public sets: number,
-        public isRepitition: boolean,
+        public isRepetition: boolean,
         public time?: number
     ) {}
 }
