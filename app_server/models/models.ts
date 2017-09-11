@@ -7,16 +7,10 @@ const exerciseSchema = module.exports.exerciseSchema = new mongoose.Schema({
         required: true,
     },
     reps: {
-        type: Number,
-        'default': 12,
-        min: 0,
-        max: 30
+        type: Number
     },
     sets: {
-        type: Number,
-        'default': 3,
-        min: 0,
-        max: 5
+        type: Number
     },
     creator: String,
     description: String,
@@ -33,7 +27,7 @@ const programSchema = module.exports.programSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    exercises: [exerciseSchema],
+    exercises: [],
     category: String,
     creator: String,
     create_date: Date

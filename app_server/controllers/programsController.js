@@ -28,56 +28,39 @@ class ProgramsController {
         //fetch from db based on id
         let programResponse;
         let exercisesResponse;
-        let promise1 = new Promise((resolve, reject) => {
+        let allExercises;
+        let promise = new Promise((resolve, reject) => {
             Programs.findById(programId)
                 .exec(function (err, programs) {
                 programResponse = programs;
-                resolve();
+                Exercises.find({
+                    '_id': { $in: programResponse.exercises }
+                }).exec((err, exercises) => {
+                    exercisesResponse = exercises;
+                    Exercises.find({
+                        '_id': { $nin: programResponse.exercises }
+                    }).exec((err, exercises) => {
+                        allExercises = exercises;
+                        resolve();
+                    });
+                });
             });
         });
-        let promise2 = new Promise((resolve, reject) => {
-            Exercises.find()
-                .exec((err, exercises) => {
-                exercisesResponse = exercises;
-                resolve();
-            });
-        });
-        Promise.all([promise1, promise2]).then(() => {
-            let sortedExercises = sortExercises(programResponse.exercises, exercisesResponse);
+        promise.then(() => {
+            let programVM = programResponse;
+            programResponse.exercises = exercisesResponse;
             res.render('program', {
                 program: programResponse,
-                exercises: sortedExercises
+                exercises: allExercises
             });
         });
-        function sortExercises(programExercises, other) {
-            let filteredExercises = other
-                .filter((e) => !programExercises
-                .filter((pe) => pe._id !== e._id)
-                .length);
-            return filteredExercises;
-        }
     }
     addExerciseToProgram(req, res, next) {
         //Add exercise id to program
         let exerciseId = req.body.exercise;
-        let exercise;
         let programId = req.params.programId;
-        Programs.findById(programId)
-            .exec((err, program) => {
-            Exercises.findById(exerciseId)
-                .exec(function (err, exercises) {
-                exercise = exercises;
-                program.exercises.push({
-                    name: exercise.name,
-                    sets: exercise.sets,
-                    repetition: exercise.repetition,
-                    description: exercise.description,
-                    isRepetition: exercise.isRepetition
-                });
-                program.save(function (err, program) {
-                    res.redirect('/Programs/' + programId);
-                });
-            });
+        Programs.update({ _id: programId }, { $push: { exercises: exerciseId } }, () => {
+            res.redirect('/programs/' + programId);
         });
     }
     addProgram(req, res, next) {
@@ -90,7 +73,7 @@ class ProgramsController {
             category: req.body.category,
             create_date: new Date()
         });
-        res.redirect('/Programs');
+        res.redirect('/programs');
     }
 }
 exports.ProgramsController = ProgramsController;

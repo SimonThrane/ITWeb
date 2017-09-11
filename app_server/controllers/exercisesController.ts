@@ -51,8 +51,8 @@ export class ExercisesController {
             sets: req.body.sets,
             time: req.body.time,
             create_date: new Date()
+        }, () => {
+            res.redirect('/exercises');
         });
-
-        res.redirect('/exercises');
     }
 }
