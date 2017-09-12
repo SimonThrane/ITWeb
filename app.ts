@@ -8,7 +8,6 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 require('./app_server/models/db');
 import * as index from './app_server/routes/index';
-import * as users from './app_server/routes/users';
 import * as programs from './app_server/routes/programs';
 import * as exercises from './app_server/routes/exercises';
 
@@ -27,7 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/' as any, index as any);
-app.use('/users' as any, users as any);
 app.use('/programs' as any, programs as any);
 app.use('/exercises' as any, exercises as any);
 
